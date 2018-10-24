@@ -19,7 +19,7 @@
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://251406289851.dkr.ecr.us-west-1.amazonaws.com', '311b4a0a-dde2-49f5-a5f1-3d250858536f') {
+        docker.withRegistry('https://529505258873.dkr.ecr.us-east-1.amazonaws.com', '311b4a0a-dde2-49f5-a5f1-3d250858536f') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
@@ -30,7 +30,7 @@
     stage('Deploy') {
         sh('kubectl create -f blog-deployment.yml')
         sh('kubectl create -f blog-service.yml')
-        sh('kubectl run hellodockercon --image=251406289851.dkr.ecr.us-west-1.amazonaws.com/smartcheck/hellodockercon:latest --port 8080')
+        sh('kubectl run hellodockercon --image=529505258873.dkr.ecr.us-east-1.amazonaws.com/devchatdemo:latest --port 8080')
         sh('sleep 5')
         sh('kubectl expose deployment hellodockercon --type=LoadBalancer --port 80 --target-port 8080')
         sh('sleep 20')
