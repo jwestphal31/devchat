@@ -28,6 +28,7 @@
         sh './scan.sh'
     }
     stage('Deploy') {
+        sh ('kubectl create -f blog-deployment.yml')
         sh('kubectl run hellodockercon --image=251406289851.dkr.ecr.us-west-1.amazonaws.com/smartcheck/hellodockercon:latest --port 8080')
         sh('sleep 5')
         sh('kubectl expose deployment hellodockercon --type=LoadBalancer --port 80 --target-port 8080')
