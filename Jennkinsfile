@@ -10,7 +10,7 @@
 
         app.inside {
             sh 'echo "Tests passed"'
-            sh ('docker build . -t rhan888:blog')
+            sh ('docker build . -t jwest:blog')
         }
     }
 
