@@ -1,15 +1,15 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: blog
+  name: mkeaws
 spec:
   replicas: 1
   template:
     spec:
       containers:
       - env:
-        image: jwest/blog:latest
+        image: devchatdemo:latest
         imagePullPolicy: Always
-        name: blog
+        name: mkewas
         ports:
         - containerPort: 80
