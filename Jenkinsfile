@@ -1,7 +1,7 @@
    stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        app = docker.build("devchatdemo")
+        app = docker.build("blog")
     }
 
     stage('Test image') {
@@ -30,9 +30,9 @@
     stage('Deploy') {
         sh('kubectl create -f blog-deployment.yml')
         sh('kubectl create -f blog-service.yml')
-        sh('kubectl run hellodockercon --image=529505258873.dkr.ecr.us-east-1.amazonaws.com/devchatdemo:latest --port 8080')
+        sh('kubectl run blog --image=529505258873.dkr.ecr.us-east-1.amazonaws.com/devchatdemo:latest --port 8080')
         sh('sleep 5')
-        sh('kubectl expose deployment devchatdemo --type=LoadBalancer --port 80 --target-port 8080')
+        sh('kubectl expose deployment blog --type=LoadBalancer --port 80 --target-port 8080')
         sh('sleep 20')
-        sh('kubectl get svc --namespace default devchatdemo --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}"')
+        sh('kubectl get svc --namespace default blog --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}"')
     }
